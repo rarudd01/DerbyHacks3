@@ -8,7 +8,7 @@ using DerbyHacks.Model;
 
 namespace DerbyHacksApi.Models
 {
-    public class Block
+    public class Block : IDataModel
     {
         
         //Top bounding coords
