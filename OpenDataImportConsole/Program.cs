@@ -1,4 +1,4 @@
-﻿using DerbyHacks.Data;
+﻿using DerbyHacks.Model;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

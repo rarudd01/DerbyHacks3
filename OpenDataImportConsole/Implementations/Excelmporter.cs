@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DerbyHacks.Data;
+using DerbyHacks.Model;
 
 namespace OpenDataImportConsole
 {

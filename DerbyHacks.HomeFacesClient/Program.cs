@@ -8,6 +8,8 @@ using Emgu.CV;
 using Emgu.CV.Structure;
 using System.Drawing.Imaging;
 using DerbyHacks.HomeFacesClient;
+using System.Diagnostics;
+using System.Threading;
 
 namespace DerbyHacks.HomeFacesClient
 {
@@ -16,13 +18,15 @@ namespace DerbyHacks.HomeFacesClient
         static void Main(string[] args)
         {
             Capture capture = new Capture();
+            
+            Thread.Sleep(1000);
 
             capture.Grab();
             Mat frame = capture.QueryFrame();
+            frame = capture.QueryFrame();
             Image<Bgr, byte> image = frame.ToImage<Bgr, byte>();
-            //image.Save("c:\\button.bmp");
-
-            Save(image, "test.jpeg", long.MaxValue);
+            
+            Save(image, "test.bmp", 100);
         }
 
         public static void Save(Emgu.CV.Image<Bgr, Byte> img, string filename, double quality)

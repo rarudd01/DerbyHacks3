@@ -1,4 +1,4 @@
-﻿using DerbyHacks.Data;
+﻿using DerbyHacks.Model;
 using Geocoding;
 using Geocoding.Google;
 using System;
