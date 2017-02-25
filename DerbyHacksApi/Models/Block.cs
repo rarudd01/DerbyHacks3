@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.SQLite;
 using DerbyHacksApi.Models;
-using DerbyHacks.Data;
+using DerbyHacks.Model;
 
 namespace DerbyHacksApi.Models
 {

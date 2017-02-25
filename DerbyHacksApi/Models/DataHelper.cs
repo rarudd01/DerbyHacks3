@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using System.Web;
-using DerbyHacks.Data;
+using DerbyHacks.Model;
 
 namespace DerbyHacksApi.Models
 {
