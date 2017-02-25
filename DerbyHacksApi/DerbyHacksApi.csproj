@@ -118,6 +118,7 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CrimeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -125,7 +126,6 @@
     <Compile Include="Models\Block.cs" />
     <Compile Include="Models\CrimeRatio.cs" />
     <Compile Include="Models\DataHelper.cs" />
-    <Compile Include="Models\Incident.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -136,7 +136,16 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DerbyHacks.Business\DerbyHacks.Business.csproj">
+      <Project>{e79c0624-fb28-4500-bf3e-76fd88a33e8d}</Project>
+      <Name>DerbyHacks.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DerbyHacks.Data\DerbyHacks.Data.csproj">
+      <Project>{2f66ea1f-ca93-401f-ac98-41063d3ea46a}</Project>
+      <Name>DerbyHacks.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

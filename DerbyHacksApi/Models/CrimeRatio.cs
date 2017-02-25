@@ -7,7 +7,7 @@ namespace DerbyHacksApi.Models
 {
     public class CrimeRatio
     {
-        public string Crime;
+        public string CrimeType;
         public double Ratio;
         public int Count;
     }
