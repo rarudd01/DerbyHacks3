@@ -10,7 +10,7 @@ namespace DerbyHacks.Business
     {
         private Dictionary<ThreatLevel, int> threatThresholds;
 
-        public double Radius { get; set; }
+        public double Range { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         
@@ -18,9 +18,9 @@ namespace DerbyHacks.Business
         {
             get
             {
-                if (Radius <= 0)
+                if (Range <= 0)
                 {
-                    throw new InvalidOperationException("Please set valid crime radius.");
+                    throw new InvalidOperationException("busta, set valid crime range.");
                 }
 
                 if (threatThresholds.Count == 0)
@@ -42,10 +42,10 @@ namespace DerbyHacks.Business
             }
         }
 
-        public ThreatCalculator(double latitude, double longitude, double radius)
+        public ThreatCalculator(double latitude, double longitude, double range)
         {
             threatThresholds = new Dictionary<ThreatLevel, int>();
-            Radius = radius;
+            Range = range;
             Latitude = latitude;
             Longitude = longitude;
         }
@@ -71,9 +71,14 @@ namespace DerbyHacks.Business
 
         private int calculate()
         {
+<<<<<<< HEAD
             IEnumerable<CrimeData> data = CrimeData.GetNearbyCrime(Latitude, Longitude, Radius);
             Dictionary<string, ThreatType> map = new Dictionary<string, ThreatType>();
             map.Add("Arson", ThreatType.Arson);
+=======
+            IEnumerable<CrimeData> data = CrimeData.GetNearbyCrime(Latitude, Longitude, Range);
+            
+>>>>>>> origin/master
             throw new NotImplementedException();
         }
     }
@@ -97,7 +102,7 @@ namespace DerbyHacks.Business
         Dui = 10,
         Fraud = 2,
         Homicide = 15,
-        MotorVehicleTheft,
+        MotorVehicleTheft = 16,
         Other = 1, 
         Robbery = 13,
         SexCrimes = 14,

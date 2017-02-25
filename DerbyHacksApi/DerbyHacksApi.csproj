@@ -91,7 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="WebActivatorEx">
@@ -119,10 +118,14 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CrimeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Block.cs" />
+    <Compile Include="Models\CrimeRatio.cs" />
+    <Compile Include="Models\DataHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -134,9 +137,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ProjectReference Include="..\DerbyHacks.Model\DerbyHacks.Model.csproj">
       <Project>{f041dce1-722a-4857-9adf-198de49cafd9}</Project>
       <Name>DerbyHacks.Model</Name>
+=======
+    <ProjectReference Include="..\DerbyHacks.Business\DerbyHacks.Business.csproj">
+      <Project>{e79c0624-fb28-4500-bf3e-76fd88a33e8d}</Project>
+      <Name>DerbyHacks.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DerbyHacks.Data\DerbyHacks.Data.csproj">
+      <Project>{2f66ea1f-ca93-401f-ac98-41063d3ea46a}</Project>
+      <Name>DerbyHacks.Data</Name>
+>>>>>>> origin/master
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
