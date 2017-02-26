@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using DerbyHacks.Model;
 
-namespace DerbyHacksApi.Models
+namespace DerbyHacksApi
 {
     public class DataHelper
     {
@@ -13,7 +13,7 @@ namespace DerbyHacksApi.Models
 
         public DataHelper()
         {
-            dbConnection = new SQLiteConnection("Data Source=data.sqlite;Version=3;");
+            dbConnection = DbInit.FindOrCreate("data");
             dbConnection.Open();
         }
 

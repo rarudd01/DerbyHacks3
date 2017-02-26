@@ -36,5 +36,41 @@ namespace DerbyHacksApi.Models
 
         }
 
+        public void Insert(IEnumerable<CrimeData> data)
+        {
+            using (SQLiteConnection connection = DbInit.FindOrCreate("data"))
+            {
+                connection.Open();
+
+                using (SQLiteCommand command = new SQLiteCommand())
+                {
+                    command.CommandType = System.Data.CommandType.Text;
+                    command.CommandText = @"
+                        Insert into dbo.CrimeData (Id, DateOccured, CrimeType, BlockAddress, City, Zip, IncidentNumber, State, FormattedAddress, Latitude, Longitude)
+                        Values 
+                    ";
+                    foreach (var item in data)
+                    {
+                        command.CommandText += string.Format("({0}, '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', {9}, {10}),",
+                            item.Id, 
+                            item.DateOccured, 
+                            item.CrimeType,
+                            item.BlockAddress, 
+                            item.City,
+                            item.Zip, 
+                            item.IncidentNumber, 
+                            item.State,
+                            item.FormattedAddress, 
+                            item.Latitude, 
+                            item.Longitude);
+                    }
+
+                    command.CommandText = command.CommandText.Remove(command.CommandText.LastIndexOf(","), 1);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
     }
 }

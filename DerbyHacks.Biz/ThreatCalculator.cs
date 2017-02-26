@@ -1,4 +1,5 @@
 ﻿using DerbyHacks.Model;
+using DerbyHacksApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,7 +72,9 @@ namespace DerbyHacks.Biz
 
         private int calculate()
         {
-            IEnumerable<CrimeData> data = CrimeData.GetNearbyCrime(Latitude, Longitude, Radius);
+            DataHelper helper = new DataHelper();
+
+            IEnumerable<CrimeData> data = helper.GetIncidentsInRange(Longitude, Latitude, Radius);
             Dictionary<string, ThreatType> map = new Dictionary<string, ThreatType>();
             map.Add("Arson", ThreatType.Arson);
             throw new NotImplementedException();

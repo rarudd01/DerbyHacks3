@@ -25,6 +25,8 @@ namespace OpenDataImportConsole
             DataEnrichment.Geocode(apiKey, (CrimeData)models.First());
             Console.WriteLine("Enrichment complete.");
 
+
+
             Console.ReadKey();
         }
     }
