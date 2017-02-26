@@ -64,11 +64,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IDataModel.cs" />
-    <Compile Include="DataHelper.cs" />
     <Compile Include="DbInit.cs" />
     <Compile Include="Models\Block.cs" />
     <Compile Include="Models\CrimeData.cs" />
     <Compile Include="Models\CrimeRatio.cs" />
+    <Compile Include="Models\DataHelper.cs" />
     <Compile Include="Models\Incident.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -15,7 +15,7 @@ namespace DerbyHacks.Model
         public string City { get; set; }
         public string Zip { get; set; }
         public string IncidentNumber { get; set; }
-        public string State { get; set; }
+        public string State { get; internal set; }
         public string FormattedAddress { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }

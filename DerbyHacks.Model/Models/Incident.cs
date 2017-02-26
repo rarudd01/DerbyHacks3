@@ -1,14 +1,16 @@
-﻿using System;
+﻿using DerbyHacks.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace DerbyHacks.Model
+namespace DerbyHacksApi.Models
 {
     public class Incident : IDataModel
     {
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-        public string CrimeType { get; set; }
+        double Latitude;
+        double Longitude;
+        string CrimeType;
+
     }
 }

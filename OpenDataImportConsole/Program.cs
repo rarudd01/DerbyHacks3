@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace OpenDataImportConsole
 {
@@ -15,24 +17,15 @@ namespace OpenDataImportConsole
 
             IDataImporter importer = ImportFactory.Create(config);
 
-            List<CrimeData> models = importer.Import(DataModelType.CrimeData).ToList() ;
+            List<IDataModel> models = importer.Import(DataModelType.CrimeData).ToList();
 
             Console.WriteLine(string.Format("{0} data models imported.", models.Count));
 
             Console.WriteLine("Beginning geocoding enrichment...");
-            DataEnrichment.Geocode(apiKey, models.First());
+            DataEnrichment.Geocode(apiKey, (CrimeData)models.First());
             Console.WriteLine("Enrichment complete.");
 
-            DataHelper helper = new DataHelper();
-            try
-            {
-                helper.Insert(models);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-            
+
 
             Console.ReadKey();
         }
