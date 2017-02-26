@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using System.Web;
-using DerbyHacks.Model;
 
-namespace DerbyHacksApi.Models
+namespace DerbyHacks.Model
 {
     public class DataHelper
     {
@@ -13,14 +12,14 @@ namespace DerbyHacksApi.Models
 
         public DataHelper()
         {
-            dbConnection = new SQLiteConnection("Data Source=data.sqlite;Version=3;");
+            dbConnection = DbInit.FindOrCreate("data");
             dbConnection.Open();
         }
 
         public IEnumerable<CrimeData> GetIncidentsInRange(double longitude, double latitude, double range)
         {
             List<CrimeData> incidents = new List<CrimeData>();
-            string sql = string.Format("SELECT CrimeType, Latitude, Longitude FROM Incidents WHERE latitude > ({0} - {2}) and latitude < ({0} + {2}) and longitude > ({1} - {2}) and longitude < ({1} + {2})", latitude, longitude, range);
+            string sql = string.Format("SELECT CrimeType, Latitude, Longitude FROM CrimeData WHERE latitude > ({0} - {2}) and latitude < ({0} + {2}) and longitude > ({1} - {2}) and longitude < ({1} + {2})", latitude, longitude, range);
             SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
             while(reader.Read())
@@ -42,11 +41,11 @@ namespace DerbyHacksApi.Models
             {
                 connection.Open();
 
-                using (SQLiteCommand command = new SQLiteCommand())
+                using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
                     command.CommandType = System.Data.CommandType.Text;
                     command.CommandText = @"
-                        Insert into dbo.CrimeData (Id, DateOccured, CrimeType, BlockAddress, City, Zip, IncidentNumber, State, FormattedAddress, Latitude, Longitude)
+                        Insert into CrimeData (Id, DateOccured, CrimeType, BlockAddress, City, Zip, IncidentNumber, State, FormattedAddress, Latitude, Longitude)
                         Values 
                     ";
                     foreach (var item in data)

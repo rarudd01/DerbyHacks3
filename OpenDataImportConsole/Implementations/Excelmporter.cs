@@ -12,7 +12,7 @@ namespace OpenDataImportConsole
 {
     public class Excelmporter : IDataImporter
     {
-        public IEnumerable<IDataModel> Import(DataModelType modelType)
+        public IEnumerable<CrimeData> Import(DataModelType modelType)
         {
             switch (modelType)
             {

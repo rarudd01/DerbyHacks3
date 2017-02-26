@@ -9,7 +9,7 @@ namespace OpenDataImportConsole
 {
     public interface IDataImporter
     {
-        IEnumerable<IDataModel> Import(DataModelType dataModelType);
+        IEnumerable<CrimeData> Import(DataModelType dataModelType);
     }
 
     public enum DataModelType

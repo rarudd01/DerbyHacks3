@@ -11,26 +11,19 @@ namespace DerbyHacks.Biz
     {
         private Dictionary<ThreatLevel, int> threatThresholds;
 
-        public double Radius { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-        
+        private Block block;
+
         public ThreatLevel ThreatLevel
         {
             get
             {
-                if (Radius <= 0)
-                {
-                    throw new InvalidOperationException("Please set valid crime radius.");
-                }
-
                 if (threatThresholds.Count == 0)
                 {
                     throw new InvalidOperationException("Please add threshold.");
                 }
 
                 int severity = calculate();
-                
+
                 foreach (var item in threatThresholds.OrderByDescending(t => t.Key))
                 {
                     if (item.Value < severity)
@@ -43,12 +36,10 @@ namespace DerbyHacks.Biz
             }
         }
 
-        public ThreatCalculator(double latitude, double longitude, double radius)
+        public ThreatCalculator(Block _block)
         {
+            block = _block;
             threatThresholds = new Dictionary<ThreatLevel, int>();
-            Radius = radius;
-            Latitude = latitude;
-            Longitude = longitude;
         }
 
         public void AddThreshold(ThreatLevel level, int value)
@@ -70,14 +61,83 @@ namespace DerbyHacks.Biz
             }
         }
 
+        public void CalculateCrimeRatios()
+        {
+            int count = 0;
+
+            Dictionary<string, int> map = new Dictionary<string, int>();
+            map.Add("Arson".ToUpper(), 0);
+            map.Add("Assault".ToUpper(), 0);
+            map.Add("Burgulary".ToUpper(), 0);
+            map.Add("DisturbingThePeace".ToUpper(), 0);
+            map.Add("Drugs".ToUpper(), 0);
+            map.Add("Dui".ToUpper(), 0);
+            map.Add("Fraud".ToUpper(), 0);
+            map.Add("Homicide".ToUpper(), 0);
+            map.Add("MotorVehicleTheft".ToUpper(), 0);
+            map.Add("Other".ToUpper(), 0);
+            map.Add("Robbery".ToUpper(), 0);
+            map.Add("SexCrimes".ToUpper(), 0);
+            map.Add("Theft".ToUpper(), 0);
+            map.Add("Vandalism".ToUpper(), 0);
+            map.Add("VehicleBreakIn".ToUpper(), 0);
+            map.Add("Weapons".ToUpper(), 0);
+
+            foreach (CrimeData indident in block.Incidents)
+            {
+                count++;
+                int currentCount = 0;
+                if (!map.TryGetValue(indident.CrimeType, out currentCount))
+                {
+                    map.Add(indident.CrimeType, currentCount);
+                }
+                else
+                {
+                    map[indident.CrimeType] = currentCount++;
+                }
+            }
+
+            List<CrimeRatio> crimeRatios = new List<CrimeRatio>();
+            foreach (KeyValuePair<string, int> entry in map)
+            {
+                CrimeRatio ratio = new CrimeRatio(entry.Key, entry.Value, count);
+                crimeRatios.Add(ratio);
+            }
+
+            block.CrimeRatios = crimeRatios;
+        }
         private int calculate()
         {
-            DataHelper helper = new DataHelper();
+            int currentThreatLevel = 0;
 
-            IEnumerable<CrimeData> data = helper.GetIncidentsInRange(Longitude, Latitude, Radius);
             Dictionary<string, ThreatType> map = new Dictionary<string, ThreatType>();
-            map.Add("Arson", ThreatType.Arson);
-            throw new NotImplementedException();
+            map.Add("Arson".ToUpper(), ThreatType.Arson);
+            map.Add("Assault".ToUpper(), ThreatType.Assault);
+            map.Add("Burgulary".ToUpper(), ThreatType.Burgulary);
+            map.Add("DisturbingThePeace".ToUpper(), ThreatType.DisturbingThePeace);
+            map.Add("Drugs".ToUpper(), ThreatType.Drugs);
+            map.Add("Dui".ToUpper(), ThreatType.Dui);
+            map.Add("Fraud".ToUpper(), ThreatType.Fraud);
+            map.Add("Homicide".ToUpper(), ThreatType.Homicide);
+            map.Add("MotorVehicleTheft".ToUpper(), ThreatType.MotorVehicleTheft);
+            map.Add("Other".ToUpper(), ThreatType.Other);
+            map.Add("Robbery".ToUpper(), ThreatType.Robbery);
+            map.Add("SexCrimes".ToUpper(), ThreatType.SexCrimes);
+            map.Add("Theft".ToUpper(), ThreatType.Theft);
+            map.Add("Vandalism".ToUpper(), ThreatType.Vandalism);
+            map.Add("VehicleBreakIn".ToUpper(), ThreatType.Vandalism);
+            map.Add("Weapons".ToUpper(), ThreatType.Weapons);
+
+            foreach (CrimeData indident in block.Incidents)
+            {
+                ThreatType scalar;
+                if (map.TryGetValue(indident.CrimeType.ToUpper(), out scalar))
+                {
+                    currentThreatLevel = currentThreatLevel + (int)scalar;
+                }
+            }
+            return currentThreatLevel;
+
         }
     }
 
@@ -93,7 +153,7 @@ namespace DerbyHacks.Biz
     public enum ThreatType
     {
         Arson = 7,
-        Assualt = 11,
+        Assault = 11,
         Burgulary = 12,
         DisturbingThePeace = 4,
         Drugs = 6,
@@ -101,7 +161,7 @@ namespace DerbyHacks.Biz
         Fraud = 2,
         Homicide = 15,
         MotorVehicleTheft,
-        Other = 1, 
+        Other = 1,
         Robbery = 13,
         SexCrimes = 14,
         Theft = 9,

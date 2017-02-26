@@ -12,7 +12,7 @@ namespace DerbyHacks.Model
     {
         public static SQLiteConnection FindOrCreate(string dbName)
         {
-            string dbFileName = dbName.Contains(".sqlite") ? dbName : string.Format("{0}.sqlite", dbName);
+            string dbFileName = dbName.Contains(".sqlite") ? dbName : string.Format("C:\\{0}.sqlite", dbName);
 
             if (!File.Exists(dbFileName))
             {

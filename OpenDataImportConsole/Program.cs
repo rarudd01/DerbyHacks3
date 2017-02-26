@@ -17,16 +17,27 @@ namespace OpenDataImportConsole
 
             IDataImporter importer = ImportFactory.Create(config);
 
-            List<IDataModel> models = importer.Import(DataModelType.CrimeData).ToList();
+            List<CrimeData> models = importer.Import(DataModelType.CrimeData).ToList();
 
             Console.WriteLine(string.Format("{0} data models imported.", models.Count));
 
             Console.WriteLine("Beginning geocoding enrichment...");
-            DataEnrichment.Geocode(apiKey, (CrimeData)models.First());
+            foreach (var model in models)
+            {
+                DataEnrichment.Geocode(apiKey, model);
+            }
             Console.WriteLine("Enrichment complete.");
-
-
-
+            
+            DataHelper helper = new DataHelper();
+            try
+            {
+                helper.Insert(models);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            
             Console.ReadKey();
         }
     }

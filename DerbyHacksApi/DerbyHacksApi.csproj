@@ -118,8 +118,8 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CrimeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="DataHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -134,6 +134,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DerbyHacks.Biz\DerbyHacks.Biz.csproj">
+      <Project>{C93CB976-51E7-472B-9E37-5C21AB655D90}</Project>
+      <Name>DerbyHacks.Biz</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DerbyHacks.Model\DerbyHacks.Model.csproj">
       <Project>{f041dce1-722a-4857-9adf-198de49cafd9}</Project>
       <Name>DerbyHacks.Model</Name>
