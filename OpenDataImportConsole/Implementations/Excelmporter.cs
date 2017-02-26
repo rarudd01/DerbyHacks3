@@ -12,7 +12,7 @@ namespace OpenDataImportConsole
 {
     public class Excelmporter : IDataImporter
     {
-        public IEnumerable<IDataModel> Import(DataModelType modelType)
+        public IEnumerable<CrimeData> Import(DataModelType modelType)
         {
             switch (modelType)
             {
@@ -46,6 +46,7 @@ namespace OpenDataImportConsole
                     item.City = row["CITY"].ToString();
                     item.Zip = row["ZIP_CODE"].ToString();
                     item.IncidentNumber = row["INCIDENT_NUMBER"].ToString();
+                    item.State = "KY";
 
                     items.Add(item);
                 }

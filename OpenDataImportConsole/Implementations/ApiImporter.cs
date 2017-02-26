@@ -9,7 +9,7 @@ namespace OpenDataImportConsole
 {
     public class ApiImporter : IDataImporter
     {
-        public IEnumerable<IDataModel> Import(DataModelType dataModelType)
+        public IEnumerable<CrimeData> Import(DataModelType dataModelType)
         {
             throw new NotImplementedException();
         }

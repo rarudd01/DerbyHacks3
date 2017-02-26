@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using System.Web;
-using DerbyHacks.Model;
 
-namespace DerbyHacksApi.Models
+namespace DerbyHacks.Model
 {
     public class DataHelper
     {
@@ -13,7 +12,7 @@ namespace DerbyHacksApi.Models
 
         public DataHelper()
         {
-            dbConnection = new SQLiteConnection("Data Source=data.sqlite;Version=3;");
+            dbConnection = DbInit.FindOrCreate("data");
             dbConnection.Open();
         }
 
@@ -42,26 +41,26 @@ namespace DerbyHacksApi.Models
             {
                 connection.Open();
 
-                using (SQLiteCommand command = new SQLiteCommand())
+                using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
                     command.CommandType = System.Data.CommandType.Text;
                     command.CommandText = @"
-                        Insert into dbo.CrimeData (Id, DateOccured, CrimeType, BlockAddress, City, Zip, IncidentNumber, State, FormattedAddress, Latitude, Longitude)
+                        Insert into CrimeData (Id, DateOccured, CrimeType, BlockAddress, City, Zip, IncidentNumber, State, FormattedAddress, Latitude, Longitude)
                         Values 
                     ";
                     foreach (var item in data)
                     {
                         command.CommandText += string.Format("({0}, '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', {9}, {10}),",
-                            item.Id, 
-                            item.DateOccured, 
+                            item.Id,
+                            item.DateOccured,
                             item.CrimeType,
-                            item.BlockAddress, 
+                            item.BlockAddress,
                             item.City,
-                            item.Zip, 
-                            item.IncidentNumber, 
+                            item.Zip,
+                            item.IncidentNumber,
                             item.State,
-                            item.FormattedAddress, 
-                            item.Latitude, 
+                            item.FormattedAddress,
+                            item.Latitude,
                             item.Longitude);
                     }
 
@@ -71,6 +70,5 @@ namespace DerbyHacksApi.Models
                 }
             }
         }
-
     }
 }
